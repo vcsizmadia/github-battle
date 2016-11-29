@@ -8,4 +8,4 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-console.log('Rendered...')
+console.log('Done!');

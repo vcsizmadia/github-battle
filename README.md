@@ -38,3 +38,19 @@ All React components should be:
 * Reusable
 * Small
 * Testable
+
+### Lifecycle Methods
+
+1. When a component gets mounted to the DOM and unmounted.
+2. When a component receives new data.
+
+On mount:
+
+* Establish some default props in our component.
+* Set some initial state in our component.
+* Make an Ajax request to fetch some data needed for this component.
+* Set up any listeners.
+
+On unmount:
+
+* Remove any listeners you initially set up.

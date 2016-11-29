@@ -5,8 +5,9 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Route      = ReactRouter.Route;
 var Router     = ReactRouter.Router;
 
-var Home = require('../components/Home');
-var Main = require('../components/Main');
+var Home            = require('../components/Home');
+var Main            = require('../components/Main');
+var PromptContainer = require('../containers/PromptContainer');
 
 // 'react-router' 3.x fix:
 // var browserHistory = ReactRouter.browserHistory;
@@ -20,13 +21,13 @@ var routes = (
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
       <IndexRoute component={Home} />
+      <Route path='playerOne'            header='Player One' component={PromptContainer}        />
+      <Route path='playerTwo/:playerOne' header='Player Two' component={PromptContainer}        />
     </Route>
   </Router>
 );
 
 // <Route path='/home'                                    component={Home}                   />
-// <Route path='playerOne'            header='Player One' component={PromptContainer}        />
-// <Route path='playerTwo/:playerOne' header='Player Two' component={PromptContainer}        />
 // <Route path='battle'                                   component={ConfirmBattleContainer} />
 // <Route path='results'                                  component={ResultsContainer}       />
 
