@@ -1,5 +1,6 @@
 var React         = require('react');
 var ConfirmBattle = require('../components/ConfirmBattle');
+var githubHelpers = require('../utils/githubHelpers');
 
 console.log('ConfirmBattleContainer');
 
@@ -13,7 +14,15 @@ var ConfirmBattleContainer = React.createClass({
   componentDidMount: function () {
     // This is run after the component gets rendered.
     var query = this.props.location.query;
-    // Fetch info from GitHub and then update the state.
+    githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo])
+      .then(function (players) {
+        console.log('PLAYERS', players);
+        // Because of the 'bind' below, 'this' actually refers to the same 'this' that is above (in the outer context).
+        this.setState({
+          isLoading:   false,
+          playersInfo: [players[0], players[1]]
+        });
+      }.bind(this));
   },
   componentWillMount: function () {
     // Runs before the component gets rendered.
@@ -34,10 +43,22 @@ var ConfirmBattleContainer = React.createClass({
       playersInfo: []
     }
   },
+  handleInitiateBattle: function () {
+    this.context.router.push({
+      pathname: '/results',
+      state: {
+        playerInfo: this.state.playerInfo
+      }
+    });
+  },
   render: function() {
     console.log('ConfirmBattleContainer.render');
     return (
-      <ConfirmBattle isLoading={this.state.isLoading} playersInfo={this.state.playersInfo} />
+      <ConfirmBattle
+        isLoading={this.state.isLoading}
+        onInitiateBattle={this.handleInitiateBattle}
+        playersInfo={this.state.playersInfo}
+      />
     )
   }
 });
